@@ -247,6 +247,7 @@ Regras:
       text: {
         format: {
           type: "json_schema",
+          name: "petcuida_command_format",
           json_schema: {
             name: "petcuida_command",
             schema: {
