@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+.next/
+dist/
+build/
+
+# Env files
+*.env
+*.env.*
+!env.example
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Supabase local artifacts
+supabase/.temp/
+supabase/.branches/
+supabase/.database/
+
+# Expo / React Native
+.expo/
+.expo-shared/
+
+# macOS
+.DS_Store
+

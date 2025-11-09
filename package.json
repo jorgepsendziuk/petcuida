@@ -1,0 +1,23 @@
+{
+  "name": "petcuida",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "apps/web-next",
+    "apps/mobile"
+  ],
+  "scripts": {
+    "dev:web": "npm run dev --workspace web-next",
+    "build:web": "npm run build --workspace web-next",
+    "dev:mobile": "npm run start --workspace mobile",
+    "lint": "npm run lint --workspace web-next",
+    "lint:all": "npm run lint --workspace web-next && npm run lint --workspace mobile",
+    "build:all": "npm run build --workspace web-next && echo \"Para mobile utilize expo build via EAS.\"",
+    "dev:web-next": "npm run dev --workspace web-next",
+    "build:web-next": "npm run build --workspace web-next"
+  },
+  "engines": {
+    "node": ">=18.18.0",
+    "npm": ">=9"
+  }
+}
