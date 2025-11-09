@@ -268,14 +268,14 @@ Regras:
         },
       },
       input: [
-        { role: "system", content: [{ type: "text", text: systemPrompt }] },
+        { role: "system", content: [{ type: "input_text", text: systemPrompt }] },
         ...(request.history?.map((item) => ({
           role: item.role,
-          content: [{ type: "text", text: item.content }],
+          content: [{ type: "input_text", text: item.content }],
         })) ?? []),
         {
           role: "user",
-          content: [{ type: "text", text: request.query }],
+          content: [{ type: "input_text", text: request.query }],
         },
       ],
     }),
