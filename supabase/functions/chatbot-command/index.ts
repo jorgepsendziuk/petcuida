@@ -244,24 +244,27 @@ Regras:
     },
     body: JSON.stringify({
       model: openAiModel,
-      response_format: {
-        type: "json_schema",
-        json_schema: {
-          name: "petcuida_command",
-          schema: {
-            type: "object",
-            properties: {
-              action: {
-                type: "string",
-                enum: ["create_pet", "create_pet_treatment", "log_treatment"],
+      modalities: ["text"],
+      text: {
+        format: {
+          type: "json_schema",
+          json_schema: {
+            name: "petcuida_command",
+            schema: {
+              type: "object",
+              properties: {
+                action: {
+                  type: "string",
+                  enum: ["create_pet", "create_pet_treatment", "log_treatment"],
+                },
+                payload: {
+                  type: "object",
+                  additionalProperties: true,
+                },
               },
-              payload: {
-                type: "object",
-                additionalProperties: true,
-              },
+              required: ["action", "payload"],
+              additionalProperties: false,
             },
-            required: ["action", "payload"],
-            additionalProperties: false,
           },
         },
       },
