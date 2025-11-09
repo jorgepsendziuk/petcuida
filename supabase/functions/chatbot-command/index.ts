@@ -244,7 +244,6 @@ Regras:
     },
     body: JSON.stringify({
       model: openAiModel,
-      modalities: ["text"],
       text: {
         format: {
           type: "json_schema",
