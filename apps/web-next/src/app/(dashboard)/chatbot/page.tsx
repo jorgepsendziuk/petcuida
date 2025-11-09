@@ -37,21 +37,39 @@ const formatAction = (action?: string) => {
   return translations[action] ?? action;
 };
 
+type MutationInput = {
+  prompt: string;
+  history: ChatMessage[];
+};
+
 export default function ChatbotPage() {
   const { session } = useAuth();
   const [form] = Form.useForm<ChatFormValues>();
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const { message } = App.useApp();
 
-  const mutation = useMutation({
-    mutationFn: async (prompt: string) => {
+  const mutation = useMutation<
+    { action?: string; data?: unknown; error?: string },
+    Error,
+    MutationInput
+  >({
+    mutationFn: async ({ prompt, history }) => {
       if (!functionsUrl) {
         throw new Error("URL das edge functions não configurada.");
       }
       const token = session?.access_token;
-      if (!token) {
+      const userId = session?.user?.id;
+      if (!token || !userId) {
         throw new Error("Sessão inválida. Faça login novamente.");
       }
+
+      const historyPayload =
+        history.length > 0
+          ? history.map((item) => ({
+              role: item.author === "user" ? "user" : "assistant",
+              content: item.content,
+            }))
+          : undefined;
 
       const response = await fetch(`${functionsUrl}/chatbot-command`, {
         method: "POST",
@@ -60,7 +78,11 @@ export default function ChatbotPage() {
           Authorization: `Bearer ${token}`,
           "x-petcuida-chatbot-secret": process.env.NEXT_PUBLIC_PETCUIDA_CHATBOT_SECRET ?? "",
         },
-        body: JSON.stringify({ query: prompt }),
+        body: JSON.stringify({
+          query: prompt,
+          userId,
+          history: historyPayload,
+        }),
       });
 
       if (!response.ok) {
@@ -109,8 +131,9 @@ export default function ChatbotPage() {
       timestamp: new Date().toISOString(),
     };
 
-    setMessages((prev) => [...prev, newMessage]);
-    mutation.mutate(prompt);
+    const updatedMessages = [...messages, newMessage];
+    setMessages(updatedMessages);
+    mutation.mutate({ prompt, history: updatedMessages });
   };
 
   const timeline = useMemo(
