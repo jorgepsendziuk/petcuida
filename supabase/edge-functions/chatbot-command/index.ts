@@ -5,7 +5,7 @@ const supabaseUrl = Deno.env.get("SUPABASE_URL");
 const serviceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
 const chatbotSecret = Deno.env.get("CHATBOT_SERVICE_SECRET");
 const openAiKey = Deno.env.get("OPENAI_API_KEY");
-const openAiModel = Deno.env.get("OPENAI_MODEL") ?? "gpt-4.1-mini";
+const openAiModel = Deno.env.get("OPENAI_MODEL") ?? "gpt-4o-mini";
 
 if (!supabaseUrl || !serviceRoleKey) {
   throw new Error("Edge function missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY");
@@ -236,7 +236,7 @@ Regras:
 - Se não compreender, responda com action create_pet_treatment mas com payload vazio e campo notes explicando o erro.
 `;
 
-  const response = await fetch("https://api.openai.com/v1/responses", {
+  const response = await fetch("https://api.openai.com/v1/chat/completions", {
     method: "POST",
     headers: {
       Authorization: `Bearer ${openAiKey}`,
@@ -244,31 +244,78 @@ Regras:
     },
     body: JSON.stringify({
       model: openAiModel,
-      text: {
-        format: {
-          type: "json_schema",
-          name: "petcuida_command_format",
-          json_schema: {
-            name: "petcuida_command",
-            schema: {
-              type: "object",
-              properties: {
-                action: {
-                  type: "string",
-                  enum: ["create_pet", "create_pet_treatment", "log_treatment"],
-                },
-                payload: {
-                  type: "object",
-                  additionalProperties: true,
-                },
+      response_format: {
+        type: "json_schema",
+        json_schema: {
+          name: "petcuida_command",
+          schema: {
+            type: "object",
+            properties: {
+              action: {
+                type: "string",
+                enum: ["create_pet", "create_pet_treatment", "log_treatment"],
               },
-              required: ["action", "payload"],
-              additionalProperties: false,
+              payload: {
+                type: "object",
+                oneOf: [
+                  {
+                    required: ["userId", "name"],
+                    properties: {
+                      userId: { type: "string" },
+                      name: { type: "string" },
+                      species: { type: "string" },
+                      breed: { type: ["string", "null"] },
+                      sex: { type: "string" },
+                      birthdate: { type: ["string", "null"] },
+                      birthdateEstimated: { type: ["boolean", "null"] },
+                      weightKg: { type: ["number", "null"] },
+                      notes: { type: ["string", "null"] },
+                    },
+                    additionalProperties: false,
+                  },
+                  {
+                    required: ["userId", "petId", "title", "kind"],
+                    properties: {
+                      userId: { type: "string" },
+                      petId: { type: "string" },
+                      title: { type: "string" },
+                      kind: {
+                        type: "string",
+                        enum: ["vaccine", "deworming", "tick_flea", "general_medication", "checkup"],
+                      },
+                      description: { type: ["string", "null"] },
+                      dueDate: { type: ["string", "null"] },
+                      frequencyDays: { type: ["number", "null"] },
+                      notes: { type: ["string", "null"] },
+                    },
+                    additionalProperties: false,
+                  },
+                  {
+                    required: ["userId", "petTreatmentId"],
+                    properties: {
+                      userId: { type: "string" },
+                      petTreatmentId: { type: "string" },
+                      administeredAt: { type: ["string", "null"] },
+                      status: {
+                        type: "string",
+                        enum: ["scheduled", "completed", "missed", "cancelled"],
+                      },
+                      dosage: { type: ["string", "null"] },
+                      batchNumber: { type: ["string", "null"] },
+                      administeredBy: { type: ["string", "null"] },
+                      notes: { type: ["string", "null"] },
+                    },
+                    additionalProperties: false,
+                  },
+                ],
+              },
             },
+            required: ["action", "payload"],
+            additionalProperties: false,
           },
         },
       },
-      input: [
+      messages: [
         { role: "system", content: systemPrompt },
         ...(request.history?.map((item) => ({
           role: item.role,
@@ -288,8 +335,7 @@ Regras:
   }
 
   const completion = await response.json();
-  const content =
-    completion.output?.[0]?.content?.[0]?.text ?? completion.output_text ?? completion.choices?.[0]?.message?.content;
+  const content = completion.choices?.[0]?.message?.content;
 
   if (!content) {
     throw new Error("Resposta do modelo vazia.");
