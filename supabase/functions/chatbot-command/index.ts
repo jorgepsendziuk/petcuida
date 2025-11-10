@@ -5,7 +5,10 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 const supabaseUrl = Deno.env.get("SUPABASE_URL");
 const serviceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
 const chatbotSecret = Deno.env.get("CHATBOT_SERVICE_SECRET");
-const aiModelName = Deno.env.get("SUPABASE_AI_MODEL") ?? "gpt-4o-mini";
+const aiModelName =
+  Deno.env.get("AI_MODEL") ??
+  Deno.env.get("SUPABASE_AI_MODEL") ??
+  "gpt-4o-mini";
 
 if (!supabaseUrl || !serviceRoleKey) {
   throw new Error("Edge function missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY");
