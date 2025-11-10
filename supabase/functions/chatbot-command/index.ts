@@ -1,11 +1,11 @@
 import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.46.1";
+import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 
 const supabaseUrl = Deno.env.get("SUPABASE_URL");
 const serviceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
 const chatbotSecret = Deno.env.get("CHATBOT_SERVICE_SECRET");
-const openAiKey = Deno.env.get("OPENAI_API_KEY");
-const openAiModel = Deno.env.get("OPENAI_MODEL") ?? "gpt-4o-mini";
+const aiModelName = Deno.env.get("SUPABASE_AI_MODEL") ?? "gpt-4o-mini";
 
 if (!supabaseUrl || !serviceRoleKey) {
   throw new Error("Edge function missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY");
@@ -18,6 +18,8 @@ const supabase = createClient(supabaseUrl, serviceRoleKey, {
     persistSession: false,
   },
 });
+
+const aiSession = new Supabase.ai.Session(aiModelName);
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -217,9 +219,6 @@ function jsonResponse(data: unknown, status = 200) {
 }
 
 async function deriveActionFromPrompt(request: NaturalLanguageRequest): Promise<ChatbotAction> {
-  if (!openAiKey) {
-    throw new Error("OPENAI_API_KEY não configurada.");
-  }
   if (!request?.query || !request?.userId) {
     throw new Error("Consulta inválida para o chatbot.");
   }
@@ -236,116 +235,31 @@ Regras:
 - Se não compreender, responda com action create_pet_treatment mas com payload vazio e campo notes explicando o erro.
 `;
 
-  const response = await fetch("https://api.openai.com/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${openAiKey}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      model: openAiModel,
-      response_format: {
-        type: "json_schema",
-        json_schema: {
-          name: "petcuida_command",
-          schema: {
-            type: "object",
-            properties: {
-              action: {
-                type: "string",
-                enum: ["create_pet", "create_pet_treatment", "log_treatment"],
-              },
-              payload: {
-                type: "object",
-                oneOf: [
-                  {
-                    required: ["userId", "name"],
-                    properties: {
-                      userId: { type: "string" },
-                      name: { type: "string" },
-                      species: { type: "string" },
-                      breed: { type: ["string", "null"] },
-                      sex: { type: "string" },
-                      birthdate: { type: ["string", "null"] },
-                      birthdateEstimated: { type: ["boolean", "null"] },
-                      weightKg: { type: ["number", "null"] },
-                      notes: { type: ["string", "null"] },
-                    },
-                    additionalProperties: false,
-                  },
-                  {
-                    required: ["userId", "petId", "title", "kind"],
-                    properties: {
-                      userId: { type: "string" },
-                      petId: { type: "string" },
-                      title: { type: "string" },
-                      kind: {
-                        type: "string",
-                        enum: ["vaccine", "deworming", "tick_flea", "general_medication", "checkup"],
-                      },
-                      description: { type: ["string", "null"] },
-                      dueDate: { type: ["string", "null"] },
-                      frequencyDays: { type: ["number", "null"] },
-                      notes: { type: ["string", "null"] },
-                    },
-                    additionalProperties: false,
-                  },
-                  {
-                    required: ["userId", "petTreatmentId"],
-                    properties: {
-                      userId: { type: "string" },
-                      petTreatmentId: { type: "string" },
-                      administeredAt: { type: ["string", "null"] },
-                      status: {
-                        type: "string",
-                        enum: ["scheduled", "completed", "missed", "cancelled"],
-                      },
-                      dosage: { type: ["string", "null"] },
-                      batchNumber: { type: ["string", "null"] },
-                      administeredBy: { type: ["string", "null"] },
-                      notes: { type: ["string", "null"] },
-                    },
-                    additionalProperties: false,
-                  },
-                ],
-              },
-            },
-            required: ["action", "payload"],
-            additionalProperties: false,
-          },
-        },
-      },
-      messages: [
-        { role: "system", content: systemPrompt },
-        ...(request.history?.map((item) => ({
-          role: item.role,
-          content: item.content,
-        })) ?? []),
-        {
-          role: "user",
-          content: request.query,
-        },
-      ],
-    }),
-  });
+  const historyText =
+    request.history
+      ?.map((item) => `${item.role === "user" ? "Usuário" : "Assistente"}: ${item.content}`)
+      .join("\n") ?? "Nenhum histórico.";
 
-  if (!response.ok) {
-    const text = await response.text();
-    throw new Error(`Falha ao consultar OpenAI: ${text}`);
-  }
+  const prompt = `${systemPrompt}
 
-  const completion = await response.json();
-  const content = completion.choices?.[0]?.message?.content;
+Histórico:
+${historyText}
 
-  if (!content) {
-    throw new Error("Resposta do modelo vazia.");
+Usuário: ${request.query}
+
+Retorne apenas JSON no formato {"action": "...", "payload": {...}} sem texto adicional.`;
+
+  const completion = await aiSession.run(prompt, { stream: false, timeout: 60 });
+
+  if (!completion || typeof completion !== "string") {
+    throw new Error("Modelo não retornou conteúdo de texto.");
   }
 
   let parsed: ChatbotAction | undefined;
   try {
-    parsed = JSON.parse(content) as ChatbotAction;
+    parsed = JSON.parse(completion) as ChatbotAction;
   } catch {
-    throw new Error(`Não foi possível interpretar o JSON retornado: ${content}`);
+    throw new Error(`Não foi possível interpretar o JSON retornado: ${completion}`);
   }
 
   if (!parsed.action || !parsed.payload) {
