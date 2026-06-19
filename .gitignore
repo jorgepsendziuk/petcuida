@@ -3,6 +3,7 @@ node_modules/
 
 # Build outputs
 .next/
+out/
 dist/
 build/
 
@@ -22,7 +23,14 @@ supabase/.temp/
 supabase/.branches/
 supabase/.database/
 
-# Expo / React Native
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Vercel
+.vercel
+
+# Expo (legado removido)
 .expo/
 .expo-shared/
 

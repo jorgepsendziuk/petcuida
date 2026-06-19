@@ -1,0 +1,196 @@
+.heroTitle {
+  margin: 0 !important;
+  font-size: clamp(2.25rem, 10vw, 3.5rem) !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.05em !important;
+  line-height: 0.95 !important;
+  color: var(--ink, #1e1b4b) !important;
+}
+
+.heroTitleAccent {
+  display: block;
+  margin-left: clamp(1rem, 10vw, 2.5rem);
+  background: linear-gradient(120deg, #f97316, #ec4899, #a855f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.heroSub {
+  color: #64748b !important;
+  font-size: clamp(0.95rem, 3.5vw, 1.1rem);
+  font-weight: 600;
+  margin: clamp(0.5rem, 2vh, 0.75rem) 0 0 !important;
+  max-width: 20rem;
+}
+
+.petsScroll {
+  display: flex;
+  gap: clamp(0.85rem, 3vw, 1.25rem);
+  overflow-x: auto;
+  padding: 8px 4px 16px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.petsScroll::-webkit-scrollbar {
+  display: none;
+}
+
+.petBubble {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: var(--ink, #1e1b4b);
+}
+
+.petRing {
+  width: clamp(5rem, 22vw, 6.5rem);
+  height: clamp(5rem, 22vw, 6.5rem);
+  border-radius: 50%;
+  padding: 4px;
+  background: linear-gradient(145deg, #f97316, #ec4899, #a855f7);
+  box-shadow: 0 12px 32px rgba(236, 72, 153, 0.35);
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.petBubble:hover .petRing {
+  transform: scale(1.08) rotate(4deg);
+}
+
+.petPhoto {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #fff;
+  display: grid;
+  place-items: center;
+  font-size: 2rem;
+  border: 3px solid #fff;
+}
+
+.petName {
+  font-size: 0.85rem;
+  font-weight: 800;
+  max-width: 6.5rem;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.addBubble .petRing {
+  background: rgba(255, 255, 255, 0.9);
+  border: 3px dashed rgba(167, 139, 250, 0.55);
+  box-shadow: 0 8px 24px rgba(124, 58, 237, 0.12);
+  display: grid;
+  place-items: center;
+  font-size: 1.75rem;
+  color: #a855f7;
+}
+
+.feedList {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.65rem, 2vh, 0.85rem);
+  width: 100%;
+}
+
+.feedCard {
+  position: relative;
+  padding: clamp(1rem, 3vw, 1.25rem) clamp(1.1rem, 3.5vw, 1.35rem);
+  border-radius: clamp(1.1rem, 4vw, 1.35rem);
+  background: rgba(255, 255, 255, 0.88);
+  border: 2px solid rgba(167, 139, 250, 0.25);
+  box-shadow: 0 10px 28px rgba(124, 58, 237, 0.08);
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+
+.feedCard:hover {
+  transform: scale(1.02) rotate(0.5deg);
+}
+
+.feedCard::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  background: var(--feed-accent, #a855f7);
+  border-radius: 5px 0 0 5px;
+}
+
+.feedCardSoon::before {
+  background: linear-gradient(180deg, #f97316, #fbbf24);
+  animation: urgentPulse 2s ease-in-out infinite;
+}
+
+@keyframes urgentPulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.feedPet {
+  font-weight: 800;
+  color: var(--ink, #1e1b4b);
+  font-size: 1rem;
+}
+
+.feedTitle {
+  color: #64748b;
+  margin: 2px 0 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.feedWhen {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: rgba(167, 139, 250, 0.2);
+  color: #6d28d9;
+}
+
+.feedWhenSoon {
+  background: rgba(249, 115, 22, 0.2);
+  color: #c2410c;
+}
+
+.emptyFeed {
+  padding: clamp(1.25rem, 4vw, 1.75rem);
+  text-align: center;
+  color: #94a3b8;
+  font-weight: 600;
+  border-radius: clamp(1.1rem, 4vw, 1.35rem);
+  border: 2px dashed rgba(167, 139, 250, 0.35);
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.loading {
+  display: grid;
+  place-items: center;
+  padding: 48px;
+}
+
+.navTileWrap {
+  width: min(100%, 16rem);
+}
+
+.navTileWrapLarge {
+  width: min(100%, 20rem);
+}

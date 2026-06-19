@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <defs>
+    <linearGradient id="paw" x1="28" y1="28" x2="4" y2="4" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f97316"/>
+      <stop offset="0.5" stop-color="#ec4899"/>
+      <stop offset="1" stop-color="#a855f7"/>
+    </linearGradient>
+  </defs>
+  <g stroke="#fff" stroke-width="1.6" stroke-linejoin="round" paint-order="stroke fill">
+    <ellipse cx="7.5" cy="9.5" rx="4" ry="4.8" fill="url(#paw)" transform="rotate(-12 7.5 9.5)"/>
+    <ellipse cx="14" cy="6.5" rx="4" ry="4.8" fill="url(#paw)"/>
+    <ellipse cx="20.5" cy="9.5" rx="4" ry="4.8" fill="url(#paw)" transform="rotate(12 20.5 9.5)"/>
+    <ellipse cx="25.5" cy="14" rx="3.3" ry="4" fill="url(#paw)" transform="rotate(28 25.5 14)"/>
+    <ellipse cx="14.5" cy="22" rx="9" ry="7.8" fill="url(#paw)"/>
+  </g>
+</svg>

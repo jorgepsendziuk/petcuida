@@ -1,0 +1,252 @@
+.shell {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 120px);
+  gap: 20px;
+}
+
+.progress {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  padding: 8px 0;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.15);
+  transition: all 0.3s ease;
+}
+
+.dotActive {
+  width: 28px;
+  background: linear-gradient(90deg, #f97316, #ec4899);
+}
+
+.dotDone {
+  background: #34d399;
+}
+
+.header {
+  text-align: center;
+  padding: 0 8px;
+}
+
+.emoji {
+  font-size: 3.5rem;
+  line-height: 1;
+  margin-bottom: 12px;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3));
+}
+
+.title {
+  margin: 0 0 8px !important;
+  font-size: clamp(1.5rem, 5vw, 1.85rem) !important;
+  font-weight: 800 !important;
+  color: #fff !important;
+  letter-spacing: -0.02em !important;
+  line-height: 1.15 !important;
+}
+
+.subtitle {
+  color: rgba(255, 255, 255, 0.55) !important;
+  font-size: 1rem;
+  margin: 0 !important;
+  line-height: 1.45;
+}
+
+.body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.bigInput {
+  font-size: 1.5rem !important;
+  font-weight: 700 !important;
+  text-align: center !important;
+  height: 64px !important;
+  border-radius: 20px !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 2px solid rgba(255, 255, 255, 0.12) !important;
+  color: #fff !important;
+}
+
+.bigInput::placeholder {
+  color: rgba(255, 255, 255, 0.35) !important;
+}
+
+.bigInput:focus {
+  border-color: #ec4899 !important;
+  box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.25) !important;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 8px;
+}
+
+.primaryBtn {
+  height: 56px !important;
+  font-size: 1.1rem !important;
+  font-weight: 700 !important;
+  border-radius: 18px !important;
+  border: none !important;
+  background: linear-gradient(145deg, #f97316, #ec4899, #a855f7) !important;
+  box-shadow: 0 8px 24px rgba(236, 72, 153, 0.4) !important;
+}
+
+.secondaryBtn {
+  height: 48px !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  border-radius: 16px !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  color: #fff !important;
+}
+
+.skipBtn {
+  background: none !important;
+  border: none !important;
+  color: rgba(255, 255, 255, 0.45) !important;
+  font-size: 0.95rem !important;
+  height: auto !important;
+  padding: 8px !important;
+}
+
+.socialBtn {
+  height: 56px !important;
+  font-size: 1.05rem !important;
+  font-weight: 600 !important;
+  border-radius: 18px !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: #fff !important;
+}
+
+.photoZone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.photoCircle {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 4px dashed rgba(255, 255, 255, 0.25);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.05);
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.photoCircle:hover {
+  transform: scale(1.03);
+  border-color: #ec4899;
+}
+
+.photoCircleHasImage {
+  border-style: solid;
+  border-color: #a855f7;
+  box-shadow: 0 12px 40px rgba(168, 85, 247, 0.4);
+}
+
+.photoPreview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photoPlaceholder {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 3rem;
+}
+
+.suggestionCard {
+  padding: 16px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.suggestionLabel {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 6px;
+}
+
+.aiBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(168, 85, 247, 0.25);
+  color: #e9d5ff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.chipRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.chipSelected {
+  background: linear-gradient(145deg, #f97316, #ec4899);
+  border-color: transparent;
+}
+
+.benefitList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.benefitItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.benefitIcon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}

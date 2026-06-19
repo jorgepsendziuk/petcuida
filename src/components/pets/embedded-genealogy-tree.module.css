@@ -1,0 +1,203 @@
+.root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  padding: 0.35rem;
+}
+
+.stage {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  gap: var(--tree-family-gap, 1rem);
+  width: max-content;
+  max-width: 100%;
+  transform: scale(var(--tree-fit-scale, 1));
+  transform-origin: center center;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.family {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--tree-gap, 0.85rem);
+  padding: var(--tree-family-padding, 1rem);
+  border-radius: clamp(1rem, 3vw, 1.35rem);
+  background: rgba(255, 255, 255, 0.92);
+  border: 2px solid rgba(167, 139, 250, 0.28);
+  box-shadow: 0 12px 32px rgba(124, 58, 237, 0.1);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.family:hover {
+  transform: translateY(-2px) rotate(0.3deg);
+  box-shadow: 0 16px 40px rgba(124, 58, 237, 0.14);
+}
+
+.familyLinked {
+  border-color: rgba(14, 165, 233, 0.45);
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.95), rgba(239, 246, 255, 0.9));
+}
+
+.parents {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--tree-gap, 0.85rem);
+}
+
+.children {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--tree-gap, 0.85rem);
+  width: 100%;
+}
+
+.connector {
+  width: 2px;
+  height: clamp(0.65rem, 2vh, 1rem);
+  border-radius: 2px;
+  background: linear-gradient(180deg, rgba(167, 139, 250, 0.5), rgba(236, 72, 153, 0.35));
+  opacity: 0.7;
+}
+
+.petCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  padding: var(--tree-card-padding, 0.85rem 1rem);
+  border-radius: clamp(0.85rem, 2.5vw, 1.1rem);
+  border: 2px solid transparent;
+  background: var(--pet-card-bg, rgba(255, 247, 237, 0.9));
+  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.2s ease;
+  min-width: calc(var(--tree-avatar, 80px) + 1.5rem);
+}
+
+.petCard:hover {
+  transform: scale(1.05) rotate(-1deg);
+  border-color: rgba(168, 85, 247, 0.45);
+}
+
+.petCardParent {
+  background: var(--pet-card-bg, rgba(253, 242, 248, 0.95));
+}
+
+.avatarRing {
+  width: var(--tree-avatar, 80px);
+  height: var(--tree-avatar, 80px);
+  border-radius: 50%;
+  padding: 3px;
+  background: linear-gradient(145deg, #f97316, #ec4899, #a855f7);
+  box-shadow: 0 8px 24px rgba(236, 72, 153, 0.3);
+  margin-bottom: 0.5rem;
+}
+
+.avatarRingParent {
+  width: var(--tree-parent-avatar, 80px);
+  height: var(--tree-parent-avatar, 80px);
+}
+
+.avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #fff;
+  display: grid;
+  place-items: center;
+  font-size: calc(var(--tree-avatar, 80px) * 0.42);
+  border: 3px solid #fff;
+}
+
+.name {
+  margin: 0;
+  font-weight: 900;
+  font-size: var(--tree-name-size, 1rem);
+  letter-spacing: -0.02em;
+  color: #1e1b4b;
+  line-height: 1.1;
+}
+
+.age {
+  margin: 0.2rem 0 0;
+  font-size: var(--tree-age-size, 0.78rem);
+  font-weight: 600;
+  color: #64748b;
+}
+
+.soloGrid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  gap: var(--tree-gap, 0.85rem);
+}
+
+/* Poucos pets — destaque máximo */
+.root[data-size="showcase"] .stage {
+  width: 100%;
+  max-width: 100%;
+}
+
+.root[data-size="showcase"] .family,
+.root[data-size="showcase"] .soloGrid {
+  width: 100%;
+  justify-content: center;
+}
+
+.root[data-size="showcase"] .petCard {
+  min-width: calc(var(--tree-avatar, 112px) + 2.25rem);
+}
+
+.root[data-size="comfortable"] .stage {
+  max-width: 100%;
+}
+
+.root[data-size="dense"] .family {
+  padding: var(--tree-family-padding, 0.55rem);
+}
+
+.loading,
+.empty {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  text-align: center;
+  color: #64748b;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.emptyCta {
+  display: inline-flex;
+  margin-top: 1rem;
+  padding: 0.65rem 1.25rem;
+  border-radius: 999px;
+  font-weight: 800;
+  color: #fff;
+  text-decoration: none;
+  background: linear-gradient(135deg, #f97316, #ec4899, #a855f7);
+}
+
+@media (max-width: 720px) {
+  .root[data-size="showcase"] {
+    --tree-fit-scale: min(var(--tree-fit-scale, 1), 1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stage,
+  .family,
+  .petCard {
+    transition: none;
+  }
+}

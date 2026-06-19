@@ -1,0 +1,19 @@
+.segmented :global(.ant-segmented-item-label) {
+  font-weight: 700;
+  font-size: 0.72rem;
+}
+
+.becomePartner {
+  padding: 0.35em 0.75em;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-decoration: none;
+  color: #6d28d9;
+  background: rgba(167, 139, 250, 0.15);
+  border: 2px solid rgba(167, 139, 250, 0.3);
+}
+
+.becomePartner:hover {
+  color: #5b21b6;
+}

@@ -1,0 +1,66 @@
+.stack {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: clamp(0.5rem, 2vh, 1rem);
+  perspective: 1400px;
+}
+
+.card {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: min(94vw, 22rem);
+  transition:
+    transform 0.5s cubic-bezier(0.34, 1.2, 0.64, 1),
+    opacity 0.4s ease,
+    filter 0.4s ease;
+  transform-origin: center bottom;
+  will-change: transform;
+}
+
+.cardInner {
+  background: rgba(255, 255, 255, 0.94);
+  border-radius: clamp(1.1rem, 4vw, 1.5rem);
+  border: 2px solid rgba(167, 139, 250, 0.2);
+  box-shadow:
+    0 20px 50px rgba(124, 58, 237, 0.14),
+    0 4px 12px rgba(0, 0, 0, 0.04);
+  padding: clamp(0.85rem, 3vw, 1.15rem) clamp(0.9rem, 3.5vw, 1.2rem);
+  max-height: calc(100dvh - 7.5rem);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardPast {
+  transform:
+    translateX(calc(-50% + var(--depth) * 6px))
+    translateY(calc(var(--depth) * -14px))
+    scale(calc(1 - var(--depth) * 0.045))
+    rotate(calc(var(--depth) * -2.5deg));
+  opacity: calc(1 - var(--depth) * 0.14);
+  filter: brightness(calc(1 - var(--depth) * 0.04));
+  pointer-events: none;
+  z-index: calc(10 - var(--depth));
+}
+
+.cardActive {
+  transform: translateX(-50%) translateY(0) scale(1) rotate(0deg);
+  opacity: 1;
+  z-index: 20;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
+
+  .cardPast {
+    transform: translateX(-50%) translateY(calc(var(--depth) * -8px)) scale(0.96);
+  }
+}

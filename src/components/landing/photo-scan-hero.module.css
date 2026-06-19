@@ -1,0 +1,476 @@
+.stage {
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+  height: 340px;
+  margin: 0 auto;
+}
+
+.glow {
+  position: absolute;
+  inset: 8% 0;
+  background: radial-gradient(circle, rgba(167, 139, 250, 0.35) 0%, transparent 70%);
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+.photoCard {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 210px;
+  height: 250px;
+  border-radius: 28px;
+  background: linear-gradient(145deg, #fff 0%, #fef3c7 100%);
+  box-shadow:
+    0 20px 50px rgba(124, 58, 237, 0.15),
+    0 8px 24px rgba(249, 115, 22, 0.12);
+  padding: 12px;
+  animation: floatCard 4s ease-in-out infinite;
+}
+
+.photoInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  background: linear-gradient(160deg, #e0f2fe 0%, #fce7f3 50%, #fef9c3 100%);
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+
+.petEmoji {
+  font-size: 5rem;
+  z-index: 1;
+  animation: bouncePet 2.5s ease-in-out infinite;
+}
+
+.petPhoto {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.scanLine {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, #a78bfa, #f472b6, transparent);
+  box-shadow: 0 0 16px rgba(167, 139, 250, 0.9);
+  animation: scanDown 2.8s ease-in-out infinite;
+  z-index: 2;
+}
+
+.scanShine {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.55) 50%,
+    transparent 70%
+  );
+  animation: shineMove 3.5s ease-in-out infinite;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.cornerPaw {
+  position: absolute;
+  bottom: -8px;
+  right: -8px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f97316, #ec4899);
+  display: grid;
+  place-items: center;
+  font-size: 1.25rem;
+  box-shadow: 0 6px 16px rgba(236, 72, 153, 0.35);
+  animation: wiggle 2s ease-in-out infinite;
+}
+
+.badge {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 14px;
+  border-radius: 16px;
+  min-width: 108px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 10px 28px rgba(124, 58, 237, 0.14);
+  border: 2px solid rgba(167, 139, 250, 0.22);
+  animation: popIn 0.5s ease-out backwards, floatBadge 3.2s ease-in-out infinite;
+}
+
+.badgeLabel {
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.65;
+}
+
+.badgeValue {
+  font-size: 0.95rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: #1e1b4b;
+}
+
+.tonepurple {
+  border-color: rgba(167, 139, 250, 0.35);
+}
+
+.tonepurple .badgeLabel {
+  color: #6d28d9;
+}
+
+.tonepink {
+  border-color: rgba(244, 114, 182, 0.35);
+}
+
+.tonepink .badgeLabel {
+  color: #db2777;
+}
+
+.toneteal {
+  border-color: rgba(34, 211, 238, 0.35);
+}
+
+.toneteal .badgeLabel {
+  color: #0891b2;
+}
+
+.badgePos1 {
+  top: 4%;
+  left: -2%;
+}
+
+.badgePos2 {
+  top: 36%;
+  right: -14%;
+  animation-name: popIn, floatBadge2;
+}
+
+.badgePos3 {
+  bottom: 4%;
+  left: -2%;
+  animation-name: popIn, floatBadge3;
+}
+
+.sparkle1,
+.sparkle2,
+.sparkle3 {
+  position: absolute;
+  color: #fbbf24;
+  font-size: 1.25rem;
+  opacity: 0.7;
+  animation: twinkle 2s ease-in-out infinite;
+}
+
+.sparkle1 {
+  top: 16%;
+  right: 6%;
+}
+
+.sparkle2 {
+  bottom: 26%;
+  right: 2%;
+  animation-delay: 0.7s;
+  color: #f472b6;
+}
+
+.sparkle3 {
+  top: 40%;
+  left: 0;
+  animation-delay: 1.2s;
+  color: #a78bfa;
+}
+
+@keyframes floatCard {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) rotate(-1deg);
+  }
+  50% {
+    transform: translate(-50%, -54%) rotate(1deg);
+  }
+}
+
+@keyframes bouncePet {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes scanDown {
+  0% {
+    top: 0;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    top: calc(100% - 4px);
+    opacity: 0;
+  }
+}
+
+@keyframes shineMove {
+  0%,
+  100% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  50% {
+    transform: translateX(100%);
+    opacity: 0.6;
+  }
+}
+
+@keyframes pulseGlow {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes floatBadge {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes floatBadge2 {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(4px, -8px);
+  }
+}
+
+@keyframes floatBadge3 {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(6px);
+  }
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.85) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-8deg);
+  }
+  75% {
+    transform: rotate(8deg);
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+@media (min-width: 768px) {
+  .stage:not(.compact) {
+    max-width: 360px;
+    height: 380px;
+  }
+
+  .stage:not(.compact) .photoCard {
+    width: 230px;
+    height: 270px;
+  }
+
+  .stage:not(.compact) .badge {
+    min-width: 118px;
+    padding: 12px 16px;
+  }
+
+  .stage:not(.compact) .badgeValue {
+    font-size: 1.05rem;
+  }
+}
+
+.compact {
+  max-width: min(72vw, 11rem);
+  height: clamp(8.5rem, 24vh, 10.5rem);
+}
+
+.compact .photoCard {
+  width: clamp(5.5rem, 22vw, 7rem);
+  height: clamp(6.5rem, 26vh, 8rem);
+  padding: 6px;
+  border-radius: 16px;
+}
+
+.compact .photoInner {
+  border-radius: 12px;
+}
+
+.compact .petEmoji {
+  font-size: clamp(2rem, 8vw, 2.75rem);
+}
+
+.compact .cornerPaw {
+  width: 28px;
+  height: 28px;
+  font-size: 0.85rem;
+  bottom: -4px;
+  right: -4px;
+}
+
+.compact .badge {
+  min-width: 72px;
+  padding: 4px 8px;
+  border-radius: 10px;
+}
+
+.compact .badgeLabel {
+  font-size: 0.5rem;
+}
+
+.compact .badgeValue {
+  font-size: 0.68rem;
+}
+
+.compact .badgePos1 {
+  top: 2%;
+  left: -8%;
+}
+
+.compact .badgePos2 {
+  top: 32%;
+  right: -18%;
+}
+
+.compact .badgePos3 {
+  bottom: 2%;
+  left: -6%;
+}
+
+.compact .sparkle1,
+.compact .sparkle2,
+.compact .sparkle3 {
+  font-size: 0.75rem;
+}
+
+.landing {
+  max-width: min(94vw, 24rem);
+  min-height: clamp(16rem, 46vh, 23rem);
+  height: auto;
+  width: 100%;
+  padding: 0.5rem 0.75rem 0.85rem;
+  box-sizing: border-box;
+}
+
+.landing .photoCard {
+  width: clamp(10.5rem, 46vw, 15.5rem);
+  height: clamp(12.5rem, 54vw, 18rem);
+  padding: 11px;
+  border-radius: 26px;
+}
+
+.landing .photoInner {
+  border-radius: 20px;
+}
+
+.landing .petEmoji {
+  font-size: clamp(4rem, 18vw, 6rem);
+}
+
+.landing .badgePos1 {
+  top: 6%;
+  left: 0;
+}
+
+.landing .badgePos2 {
+  top: 34%;
+  right: -6%;
+}
+
+.landing .badgePos3 {
+  bottom: 6%;
+  left: 0;
+}
+
+.landing .cornerPaw {
+  width: 42px;
+  height: 42px;
+  font-size: 1.2rem;
+  bottom: -4px;
+  right: -4px;
+}
+
+.landing .badge {
+  min-width: clamp(6rem, 26vw, 8.5rem);
+  padding: clamp(0.5rem, 2vw, 0.7rem) clamp(0.65rem, 2.5vw, 0.95rem);
+}
+
+.landing .badgeLabel {
+  font-size: clamp(0.58rem, 2.2vw, 0.68rem);
+}
+
+.landing .badgeValue {
+  font-size: clamp(0.9rem, 3.6vw, 1.08rem);
+}
+
+@media (min-width: 768px) {
+  .landing {
+    max-width: min(42vw, 28rem);
+    min-height: clamp(19rem, 56vh, 27rem);
+  }
+
+  .landing .photoCard {
+    width: clamp(13rem, 32vw, 17.5rem);
+    height: clamp(15.5rem, 38vw, 20rem);
+  }
+}

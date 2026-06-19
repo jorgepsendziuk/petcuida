@@ -1,0 +1,151 @@
+.wizard {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 0 clamp(0.5rem, 3vw, 1rem);
+}
+
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.35rem, 1.2vh, 0.55rem);
+  min-height: 0;
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: clamp(1.15rem, 4.5vw, 1.45rem);
+  font-weight: 800;
+  text-align: center;
+  color: #1e1b4b;
+  letter-spacing: -0.02em;
+}
+
+.cardSub {
+  margin: 0;
+  text-align: center;
+  font-size: clamp(0.78rem, 2.8vw, 0.9rem);
+  line-height: 1.35;
+  color: #64748b;
+}
+
+.cardVisual {
+  display: flex;
+  justify-content: center;
+  margin: clamp(0.15rem, 0.8vh, 0.35rem) 0;
+}
+
+.cardActions {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.4rem, 1.5vh, 0.55rem);
+  margin-top: auto;
+  padding-top: clamp(0.25rem, 1vh, 0.5rem);
+}
+
+.primaryBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: clamp(2.75rem, 10vw, 3.1rem);
+  border-radius: 14px;
+  font-size: clamp(0.95rem, 3.5vw, 1.05rem);
+  font-weight: 800;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  background: linear-gradient(145deg, #f97316, #ec4899, #a855f7);
+  box-shadow: 0 10px 28px rgba(236, 72, 153, 0.28);
+}
+
+.primaryBtn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.secondaryBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: clamp(2.5rem, 9vw, 2.85rem);
+  border-radius: 12px;
+  font-size: clamp(0.88rem, 3.2vw, 0.98rem);
+  font-weight: 700;
+  cursor: pointer;
+  color: #6d28d9;
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid rgba(167, 139, 250, 0.35);
+}
+
+.textBtn {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  font-size: clamp(0.78rem, 2.8vw, 0.85rem);
+  cursor: pointer;
+  padding: 0.25rem;
+}
+
+.bigInput {
+  width: 100%;
+  height: clamp(2.75rem, 10vw, 3rem);
+  border-radius: 12px;
+  border: 2px solid rgba(167, 139, 250, 0.25);
+  padding: 0 14px;
+  font-size: clamp(1rem, 4vw, 1.15rem);
+  background: #fff;
+  text-align: center;
+}
+
+.compactForm {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.35rem, 1.2vh, 0.5rem);
+}
+
+.chipRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+}
+
+.chip {
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 2px solid rgba(167, 139, 250, 0.25);
+  background: #fff;
+  font-size: clamp(0.75rem, 2.8vw, 0.85rem);
+  font-weight: 600;
+  color: #475569;
+  cursor: pointer;
+  min-width: 2.25rem;
+}
+
+.chipSelected {
+  border-color: #a855f7;
+  background: #f5f3ff;
+  color: #6d28d9;
+}
+
+.inlineFields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.miniInput {
+  height: clamp(2.25rem, 8vw, 2.5rem);
+  border-radius: 10px;
+  border: 2px solid rgba(167, 139, 250, 0.22);
+  padding: 0 10px;
+  font-size: clamp(0.82rem, 3vw, 0.92rem);
+  background: #fff;
+}
+
+.loadingBox {
+  text-align: center;
+  padding: 0.5rem 0;
+}

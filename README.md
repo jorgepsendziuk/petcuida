@@ -1,41 +1,41 @@
-# PetCuida
+# AuAuAuMiau
 
-Sistema de controle e cuidados para pets com dashboard web (Next.js + Ant Design), aplicativo mobile (Expo) e automações via Supabase.
+Plataforma de cuidados para pets — **auauaumiau.com.br** — web mobile-first (Next.js) e backend Supabase.
 
 ## Estrutura
 
-- `apps/web-next`: frontend web (Next.js 15 + Ant Design)
-- `apps/mobile`: aplicativo Expo Router
-- `supabase`: migrações, seeds e edge functions
-- `docs`: documentação operacional (ambiente, deploy)
+```
+petcuida/
+  src/           # App Next.js (único frontend)
+  public/
+  supabase/      # Migrações, seeds e edge functions
+  docs/          # Documentação
+```
 
 ## Requisitos
 
 - Node.js >= 18.18
 - npm >= 9
-- Supabase CLI (para migrações/edge)
-- Expo CLI / EAS (para builds mobile)
+- Supabase CLI (migrações e edge functions)
 
 ## Primeiros passos
 
 ```bash
 npm install
-
-# web
-npm run dev:web
-
-# mobile
-npm run dev:mobile
+cp docs/environment.md .env.local   # ver variáveis em docs/environment.md
+npm run dev
 ```
 
-Defina as variáveis de ambiente consultando `docs/environment.md`.
+Acesse [http://localhost:3002](http://localhost:3002).
 
-## Qualidade e build
+## Scripts
 
-- `npm run lint:all` — lint web + mobile
-- `npm run build:web` — build produção web
+| Comando | Descrição |
+|---------|-----------|
+| `npm run dev` | Servidor de desenvolvimento (porta 3002) |
+| `npm run build` | Build de produção |
+| `npm run lint` | ESLint |
 
 ## Deploy
 
-Consulte `docs/deploy.md` para detalhes de configuração (Vercel/Netlify, EAS, Supabase edge).
-
+Consulte `docs/deploy.md` (Vercel + Supabase).

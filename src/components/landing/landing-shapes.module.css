@@ -1,0 +1,192 @@
+.canvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.shape {
+  position: absolute;
+}
+
+.ring {
+  width: clamp(9rem, 38vw, 22rem);
+  height: clamp(9rem, 38vw, 22rem);
+  border: clamp(3px, 0.8vw, 6px) solid rgba(167, 139, 250, 0.35);
+  border-radius: 50%;
+  top: clamp(2rem, 8vh, 6rem);
+  left: clamp(-3rem, -8vw, -1rem);
+  transform: rotate(-18deg);
+  animation: spinSlow 28s linear infinite;
+}
+
+.disc {
+  width: clamp(5rem, 22vw, 11rem);
+  height: clamp(5rem, 22vw, 11rem);
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.55), rgba(249, 115, 22, 0.25));
+  top: clamp(14rem, 32vh, 22rem);
+  right: clamp(-2rem, -6vw, 1rem);
+  animation: floatA 9s ease-in-out infinite;
+}
+
+.triangle {
+  width: 0;
+  height: 0;
+  border-left: clamp(2rem, 8vw, 4.5rem) solid transparent;
+  border-right: clamp(2rem, 8vw, 4.5rem) solid transparent;
+  border-bottom: clamp(3.5rem, 12vw, 7rem) solid rgba(244, 114, 182, 0.35);
+  top: clamp(4rem, 14vh, 9rem);
+  right: clamp(12%, 18vw, 22%);
+  transform: rotate(24deg);
+  animation: floatB 11s ease-in-out infinite;
+}
+
+.pill {
+  width: clamp(4rem, 18vw, 9rem);
+  height: clamp(1.25rem, 4vw, 2rem);
+  border-radius: 999px;
+  background: rgba(34, 211, 238, 0.35);
+  bottom: clamp(28%, 34vh, 38%);
+  left: clamp(4%, 8vw, 14%);
+  transform: rotate(-32deg);
+  animation: floatC 13s ease-in-out infinite;
+}
+
+.square {
+  width: clamp(2.5rem, 10vw, 5rem);
+  height: clamp(2.5rem, 10vw, 5rem);
+  border-radius: clamp(0.5rem, 2vw, 1rem);
+  background: rgba(124, 58, 237, 0.18);
+  bottom: clamp(18%, 24vh, 30%);
+  right: clamp(6%, 12vw, 18%);
+  transform: rotate(16deg);
+  animation: floatA 10s ease-in-out infinite reverse;
+}
+
+.arc {
+  width: clamp(6rem, 26vw, 14rem);
+  height: clamp(6rem, 26vw, 14rem);
+  border: clamp(3px, 0.7vw, 5px) dashed rgba(249, 115, 22, 0.4);
+  border-radius: 50%;
+  border-top-color: transparent;
+  border-left-color: transparent;
+  bottom: clamp(6rem, 14vh, 10rem);
+  left: clamp(55%, 62vw, 68%);
+  transform: rotate(-40deg);
+}
+
+.dot1,
+.dot2,
+.dot3 {
+  width: clamp(0.5rem, 2vw, 0.85rem);
+  height: clamp(0.5rem, 2vw, 0.85rem);
+  border-radius: 50%;
+  background: #f472b6;
+}
+
+.dot1 {
+  top: 22%;
+  left: 48%;
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+.dot2 {
+  top: 58%;
+  right: 28%;
+  background: #a78bfa;
+  animation: twinkle 4s ease-in-out infinite 0.5s;
+}
+
+.dot3 {
+  bottom: 22%;
+  left: 22%;
+  background: #fbbf24;
+  animation: twinkle 3.5s ease-in-out infinite 1s;
+}
+
+.zig {
+  width: clamp(3rem, 14vw, 6rem);
+  height: clamp(0.35rem, 1vw, 0.5rem);
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(109, 40, 217, 0.35) 0,
+    rgba(109, 40, 217, 0.35) 8px,
+    transparent 8px,
+    transparent 16px
+  );
+  top: 42%;
+  left: clamp(2%, 5vw, 8%);
+  transform: rotate(-8deg);
+}
+
+@keyframes spinSlow {
+  to {
+    transform: rotate(342deg);
+  }
+}
+
+@keyframes floatA {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate(10px, -14px) rotate(6deg);
+  }
+}
+
+@keyframes floatB {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(24deg);
+  }
+  50% {
+    transform: translate(-12px, 10px) rotate(30deg);
+  }
+}
+
+@keyframes floatC {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(-32deg);
+  }
+  50% {
+    transform: translate(14px, 8px) rotate(-26deg);
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(0.85);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+@media (min-width: 900px) {
+  .ring {
+    left: 4%;
+    top: 10%;
+  }
+
+  .disc {
+    right: 8%;
+    top: 18%;
+  }
+
+  .triangle {
+    right: 32%;
+    top: 6%;
+  }
+
+  .pill {
+    left: 18%;
+    bottom: 38%;
+  }
+}

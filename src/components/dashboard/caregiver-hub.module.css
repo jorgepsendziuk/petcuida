@@ -1,0 +1,224 @@
+.shell {
+  --ink: #1e1b4b;
+  position: fixed;
+  inset: 0;
+  background:
+    linear-gradient(155deg, #fff7ed 0%, transparent 38%),
+    linear-gradient(220deg, #fdf2f8 0%, transparent 42%),
+    linear-gradient(12deg, #eff6ff 55%, #f0fdf4 100%);
+  overflow: hidden;
+  color: var(--ink);
+}
+
+.hub {
+  --hub-top: calc(3.25rem + env(safe-area-inset-top, 0px));
+  position: fixed;
+  inset: var(--hub-top) 0 0 0;
+  display: grid;
+  grid-template-columns: 1fr min(36%, 17.5rem);
+  grid-template-rows: 1fr;
+  gap: clamp(0.35rem, 1.5vw, 0.65rem);
+  padding: 0 clamp(0.5rem, 2.5vw, 1rem) clamp(0.35rem, 1.5vw, 0.5rem);
+  overflow: hidden;
+  z-index: 2;
+}
+
+.treeZone {
+  position: relative;
+  min-height: 0;
+  min-width: 0;
+  border-radius: clamp(1rem, 3vw, 1.25rem);
+  background: rgba(255, 255, 255, 0.55);
+  border: 2px solid rgba(167, 139, 250, 0.22);
+  box-shadow: 0 8px 24px rgba(124, 58, 237, 0.06);
+  overflow: hidden;
+  transform: rotate(-0.4deg);
+}
+
+.treeLabel {
+  position: absolute;
+  top: 0.45rem;
+  left: 0.65rem;
+  z-index: 3;
+  margin: 0;
+  padding: 0.2em 0.65em;
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #7c3aed;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 999px;
+}
+
+.treeInner {
+  height: 100%;
+  min-height: 0;
+  padding-top: 1.75rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.addFab {
+  position: absolute;
+  bottom: 0.65rem;
+  right: 0.65rem;
+  z-index: 4;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-size: 1.35rem;
+  text-decoration: none;
+  background: linear-gradient(145deg, #f97316, #ec4899, #a855f7);
+  box-shadow: 0 8px 24px rgba(236, 72, 153, 0.4);
+  transition: transform 0.2s ease;
+}
+
+.addFab:hover {
+  transform: scale(1.08) rotate(90deg);
+  color: #fff;
+}
+
+.sideColumn {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.35rem, 1.2vh, 0.5rem);
+  min-height: 0;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.topBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: clamp(0.55rem, 2vw, 0.75rem) clamp(0.75rem, 3.5vw, 1.25rem);
+  padding-top: calc(clamp(0.55rem, 2vw, 0.75rem) + env(safe-area-inset-top, 0px));
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(16px) saturate(1.3);
+  border-bottom: 1px solid rgba(124, 58, 237, 0.08);
+}
+
+.brand {
+  font-weight: 900;
+  font-size: clamp(1.1rem, 4.5vw, 1.35rem);
+  letter-spacing: -0.04em;
+  transform: rotate(-2deg);
+  color: #ea580c;
+  text-decoration: none;
+}
+
+.topIcons {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.iconBtn {
+  position: relative;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 999px;
+  border: 2px solid rgba(124, 58, 237, 0.18);
+  background: rgba(255, 255, 255, 0.9);
+  color: #6d28d9;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  font-size: 1.15rem;
+  transition: transform 0.2s ease;
+}
+
+.iconBtn:hover {
+  transform: scale(1.06);
+}
+
+.iconBtnActive {
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.15), rgba(168, 85, 247, 0.2));
+  border-color: rgba(168, 85, 247, 0.45);
+}
+
+.bell {
+  animation: ring 2.5s ease-in-out infinite;
+  transform-origin: top center;
+}
+
+.bellHasItems::after {
+  content: "";
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #f97316;
+  border: 2px solid #fff;
+}
+
+@keyframes ring {
+  0%,
+  88%,
+  100% {
+    transform: rotate(0deg);
+  }
+  90% {
+    transform: rotate(12deg);
+  }
+  94% {
+    transform: rotate(-10deg);
+  }
+  96% {
+    transform: rotate(8deg);
+  }
+}
+
+.partnersIcon {
+  font-size: 1.25rem;
+}
+
+.profileIcon {
+  font-size: 1.2rem;
+  background: linear-gradient(135deg, #fdf2f8, #eff6ff);
+}
+
+.logoutIcon {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #dc2626;
+  border-color: rgba(220, 38, 38, 0.25);
+  background: rgba(254, 242, 242, 0.95);
+}
+
+@media (max-width: 720px) {
+  .hub {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+
+  .sideColumn {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr;
+    gap: 0.35rem;
+    overflow: hidden;
+  }
+
+  .sideColumn > :first-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bell {
+    animation: none;
+  }
+}

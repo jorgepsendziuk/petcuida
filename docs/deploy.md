@@ -1,55 +1,74 @@
 # Guia de deploy
 
-## Web (Next.js 15)
+## Web (Next.js) — Vercel
 
-1. Configure as variáveis no provedor (Vercel recomendado):
-   - `NEXT_PUBLIC_SUPABASE_URL`
-   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-   - `NEXT_PUBLIC_SUPABASE_FUNCTIONS_URL` (opcional)
-   - `NEXT_PUBLIC_PETCUIDA_CHATBOT_SECRET`
-2. Execute o build localmente para validar:
-   ```
-   npm run build:web
-   ```
-3. Em Vercel, defina o comando de build como `npm run build:web` e mantenha o diretório de saída padrão (`.next`).
-4. Garanta que as migrations continuem versionadas em `supabase/migrations` para uso em pipelines.
+Projeto existente: **[petcuida.vercel.app](https://petcuida.vercel.app)** (nome do projeto: `petcuida`).
+
+### Importante: raiz do código mudou
+
+O app Next.js está na **raiz do repo** (`src/`), não mais em `apps/web-next`.
+
+No painel Vercel → **petcuida** → Settings → General → **Root Directory**:
+
+- Deixe **vazio** ou `.` (raiz do repositório)
+- **Não** use `apps/web-next`
+
+### Variáveis de ambiente (Production)
+
+Settings → Environment Variables. Use `env.example` como referência:
+
+| Variável | Obrigatória |
+|----------|-------------|
+| `NEXT_PUBLIC_SUPABASE_URL` | Sim |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Sim |
+| `NEXT_PUBLIC_SUPABASE_FUNCTIONS_URL` | Recomendada |
+| `NEXT_PUBLIC_PETCUIDA_CHATBOT_SECRET` | Sim (chatbot) |
+| `NEXT_PUBLIC_PLATFORM_ADMIN_EMAILS` | Opcional |
+
+### Login na CLI (Device Flow — 2025+)
+
+```bash
+npm i -g vercel@latest
+vercel login
+```
+
+Abra o link exibido no terminal e autorize no navegador (OAuth Device Flow).
+
+Depois:
+
+```bash
+npm run deploy:vercel
+```
+
+O script vincula ao projeto `petcuida`, roda `npm run build` e publica em produção.
+
+### Opção B — Git (deploy automático)
+
+1. Commit e push para `main` no GitHub (`jorgepsendziuk/petcuida`)
+2. Vercel → petcuida → Settings → Git → confirme o repo e branch `main`
+3. Cada push em `main` gera deploy automático
+
+### Validar antes
+
+```bash
+npm run build
+```
 
 ## Edge function (Supabase)
 
-1. Garanta que as variáveis estejam definidas no Supabase CLI:
+1. Garanta que as variáveis estejam definidas no Supabase:
    - `SUPABASE_URL`
    - `SUPABASE_SERVICE_ROLE_KEY`
    - `OPENAI_API_KEY`
    - `CHATBOT_SERVICE_SECRET`
 2. Deploy:
    ```
-   supabase functions deploy chatbot-command --project-ref wloyrmzstrhnmdbhdkxt
-   ```
-3. Atualize o endpoint retornado (`https://<project>.functions.supabase.co/chatbot-command`) nas variáveis do frontend e do app mobile.
-
-## Mobile (Expo)
-
-1. Crie o arquivo `apps/mobile/.env` com:
-   ```
-   EXPO_PUBLIC_SUPABASE_URL=...
-   EXPO_PUBLIC_SUPABASE_ANON_KEY=...
-   EXPO_PUBLIC_CHATBOT_ENDPOINT=...
-   EXPO_PUBLIC_CHATBOT_SECRET=...
-   ```
-2. Valide o app em desenvolvimento:
-   ```
-   npm run dev:mobile
-   ```
-3. Configure o `eas.json` (não incluso) e execute:
-   ```
-   eas build -p ios
-   eas build -p android
+   supabase functions deploy chatbot-command --project-ref iqkppaemlaphzqcthqkt
+   supabase functions deploy prescription-ocr --project-ref iqkppaemlaphzqcthqkt
    ```
 
 ## Fluxo recomendado
 
-- Rodar `npm run lint:all` antes de commits.
+- Rodar `npm run lint` antes de commits.
 - Utilizar `supabase db push` após ajustes de schema.
 - Registrar novas variáveis em `docs/environment.md`.
-- Testar o chatbot acessando `/chatbot` no app web após atualização da edge function.
-

@@ -1,0 +1,230 @@
+.board {
+  position: relative;
+  border-radius: clamp(1rem, 3.5vw, 1.25rem);
+  background: rgba(255, 255, 255, 0.88);
+  border: 2px solid rgba(167, 139, 250, 0.28);
+  box-shadow: 0 10px 28px rgba(124, 58, 237, 0.08);
+  transform: rotate(-0.5deg);
+  flex-shrink: 0;
+  min-height: 0;
+}
+
+.boardShare {
+  transform: rotate(0.8deg);
+  border-color: rgba(20, 184, 166, 0.35);
+}
+
+.boardAgenda {
+  transform: rotate(-0.3deg);
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.boardHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 0.85rem;
+  border-bottom: 2px dashed rgba(167, 139, 250, 0.2);
+}
+
+.boardPin {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.boardTitle {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: #1e1b4b;
+  flex: 1;
+}
+
+.boardMeta {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.boardAction {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #6d28d9;
+  text-decoration: none;
+  padding: 0.25em 0.65em;
+  border-radius: 999px;
+  background: rgba(167, 139, 250, 0.15);
+}
+
+.boardAction:hover {
+  color: #5b21b6;
+}
+
+.boardBody {
+  padding: 0.5rem 0.75rem 0.65rem;
+  overflow: hidden;
+}
+
+.boardEmpty {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #94a3b8;
+  text-align: center;
+  padding: 0.35rem 0;
+}
+
+.noticeList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.noticeList li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.5rem;
+  padding: 0.4rem 0.55rem;
+  border-radius: 0.75rem;
+  background: rgba(255, 247, 237, 0.8);
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.noticeList li strong {
+  color: #1e1b4b;
+  font-weight: 800;
+}
+
+.noticeList li em {
+  margin-left: auto;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 0.68rem;
+  color: #6d28d9;
+}
+
+.noticeSoon {
+  background: rgba(254, 243, 199, 0.9) !important;
+  border: 1px solid rgba(249, 115, 22, 0.25);
+}
+
+.inlineActions {
+  display: flex;
+  gap: 0.35rem;
+  width: 100%;
+  margin-top: 0.15rem;
+}
+
+.inlineActions button {
+  border: none;
+  border-radius: 999px;
+  padding: 0.25em 0.7em;
+  font-family: inherit;
+  font-size: 0.68rem;
+  font-weight: 700;
+  cursor: pointer;
+  color: #fff;
+  background: linear-gradient(135deg, #14b8a6, #2dd4bf);
+}
+
+.mutedBtn {
+  background: rgba(148, 163, 184, 0.2) !important;
+  color: #64748b !important;
+}
+
+.agendaScroll {
+  display: flex;
+  gap: 0.35rem;
+  padding: 0.5rem 0.65rem 0.65rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  flex: 1;
+  align-items: stretch;
+}
+
+.agendaScroll::-webkit-scrollbar {
+  display: none;
+}
+
+.agendaDay {
+  flex: 0 0 auto;
+  width: 2.35rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  padding: 0.35rem 0.2rem;
+  border-radius: 0.65rem;
+  background: rgba(248, 250, 252, 0.9);
+  border: 1px solid transparent;
+}
+
+.agendaToday {
+  background: linear-gradient(160deg, rgba(249, 115, 22, 0.15), rgba(236, 72, 153, 0.12));
+  border-color: rgba(236, 72, 153, 0.35);
+  transform: scale(1.06);
+}
+
+.agendaHasEvents {
+  border-color: rgba(124, 58, 237, 0.2);
+}
+
+.agendaWeekday {
+  font-size: 0.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #94a3b8;
+}
+
+.agendaDate {
+  font-size: 0.85rem;
+  font-weight: 900;
+  color: #1e1b4b;
+  line-height: 1;
+}
+
+.agendaDots {
+  display: flex;
+  gap: 2px;
+  margin-top: 2px;
+}
+
+.agendaDots i {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  display: block;
+}
+
+.dotCare {
+  background: #0ea5e9;
+}
+
+.boardClinic {
+  transform: rotate(0.5deg);
+  border-color: rgba(20, 184, 166, 0.35);
+}
+
+.noticeClinic {
+  background: rgba(236, 253, 245, 0.9) !important;
+  border: 1px solid rgba(20, 184, 166, 0.2);
+}
+
+.dotClinic {
+  background: #14b8a6;
+}
+
+.dotReminder {
+  background: #a855f7;
+}

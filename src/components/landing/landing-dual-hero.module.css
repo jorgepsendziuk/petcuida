@@ -1,0 +1,170 @@
+.wrap {
+  position: relative;
+  width: 100%;
+  overflow: visible;
+}
+
+.deck {
+  --back-x: clamp(1.65rem, 6.5vw, 2.6rem);
+  --back-y: clamp(-12px, -1.8vh, -18px);
+  --back-scale: 0.88;
+  --back-rotate: 4.5deg;
+  position: relative;
+  width: 100%;
+  min-height: clamp(17rem, 48vh, 24rem);
+  padding: clamp(0.35rem, 1.2vh, 0.65rem) clamp(0.25rem, 1vw, 0.5rem) clamp(1.5rem, 3vh, 2rem);
+  overflow: visible;
+  perspective: 1400px;
+}
+
+.card {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: min(88vw, 22rem);
+  transform-origin: center bottom;
+  will-change: transform, opacity, filter;
+  transition: none;
+}
+
+.deckAnimating .card {
+  transition:
+    transform 0.72s cubic-bezier(0.34, 1.08, 0.42, 1),
+    opacity 0.72s ease,
+    filter 0.72s ease;
+}
+
+.cardFrame {
+  background: rgba(255, 255, 255, 0.55);
+  border-radius: clamp(1.25rem, 4.5vw, 1.65rem);
+  padding: clamp(0.35rem, 1.2vw, 0.5rem);
+  border: 2px solid rgba(255, 255, 255, 0.75);
+  box-shadow: 0 16px 44px rgba(124, 58, 237, 0.1);
+  overflow: visible;
+}
+
+.tonePet .cardFrame {
+  box-shadow:
+    0 20px 48px rgba(236, 72, 153, 0.14),
+    0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.toneRx .cardFrame {
+  box-shadow:
+    0 20px 48px rgba(20, 184, 166, 0.14),
+    0 4px 12px rgba(0, 0, 0, 0.04);
+  border-color: rgba(45, 212, 191, 0.25);
+}
+
+.cardFront {
+  z-index: 3;
+  transform: translateX(-50%) translateY(0) scale(1) rotate(0deg);
+  opacity: 1;
+  filter: brightness(1);
+}
+
+.cardBack {
+  z-index: 1;
+  transform: translateX(calc(-50% + var(--back-x))) translateY(var(--back-y)) scale(var(--back-scale))
+    rotate(var(--back-rotate));
+  opacity: 0.8;
+  filter: brightness(0.96);
+  pointer-events: none;
+}
+
+.peekLabel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1.65rem;
+  margin-top: 0;
+  text-align: center;
+  font-size: clamp(0.68rem, 2.6vw, 0.78rem);
+  font-weight: 700;
+  color: #94a3b8;
+  pointer-events: none;
+}
+
+.caption {
+  margin: clamp(0.55rem, 2vh, 0.85rem) auto 0;
+  padding: clamp(0.45em, 1.8vw, 0.55em) clamp(0.85em, 3.5vw, 1.1em);
+  width: fit-content;
+  max-width: 100%;
+  font-size: clamp(0.82rem, 3.2vw, 0.98rem);
+  font-weight: 800;
+  line-height: 1.25;
+  text-align: center;
+  border-radius: 999px;
+  transition:
+    opacity 0.35s ease,
+    background 0.4s ease,
+    color 0.4s ease,
+    box-shadow 0.4s ease;
+}
+
+.captionFade {
+  opacity: 0.35;
+}
+
+.captionpet {
+  color: #9d174d;
+  background: rgba(255, 255, 255, 0.88);
+  border: 2px solid rgba(244, 114, 182, 0.28);
+  box-shadow: 0 8px 22px rgba(236, 72, 153, 0.1);
+}
+
+.captionrx {
+  color: #0f766e;
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid rgba(45, 212, 191, 0.35);
+  box-shadow: 0 8px 22px rgba(20, 184, 166, 0.12);
+}
+
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: clamp(0.45rem, 1.6vh, 0.65rem);
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(148, 163, 184, 0.45);
+  transition:
+    width 0.35s ease,
+    background 0.35s ease,
+    transform 0.35s ease;
+}
+
+.dotActive {
+  width: 22px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #f97316, #ec4899);
+}
+
+.dotNext {
+  transform: scale(1.15);
+  background: linear-gradient(90deg, #14b8a6, #6366f1);
+}
+
+@media (min-width: 768px) {
+  .deck {
+    --back-x: clamp(2rem, 4.5vw, 3rem);
+    --back-y: -22px;
+    --back-scale: 0.89;
+    --back-rotate: 4deg;
+    min-height: clamp(19rem, 56vh, 27rem);
+  }
+
+  .card {
+    width: min(42vw, 26rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .deckAnimating .card {
+    transition: none !important;
+  }
+}
